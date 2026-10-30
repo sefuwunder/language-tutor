@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>language-tutor — FSI Spanish</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="brand">language-tutor <span class="brand-sub">FSI Spanish</span></div>
+  <div class="stats">
+    <span class="stat" title="Day streak">🔥 <b id="stat-streak">0</b></span>
+    <span class="stat" title="Total XP">✦ <b id="stat-xp">0</b></span>
+    <span class="stat" title="Hearts">❤️ <b id="stat-hearts">5</b></span>
+  </div>
+</header>
+
+<nav id="tabs">
+  <button data-view="learn" class="tab active">Learn</button>
+  <button data-view="roadmap" class="tab">Course map</button>
+  <button data-view="profile" class="tab">Profile</button>
+</nav>
+
+<main>
+  <!-- LEARN / PATH -->
+  <section id="view-learn" class="view">
+    <div id="path"></div>
+    <p class="footnote">Units 1 and 3 are playable in v1. Everything else on the course map is locked until its unit is added — the phrases shown are verbatim FSI text, never invented.</p>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="view-roadmap" class="view hidden">
+    <h2>FSI Spanish Basic Course — 55 units, 4 volumes</h2>
+    <p class="intro">The full course roadmap, with the real unit titles and grammar topics from the FSI index. Units 1 and 3 are playable; the rest are locked in v1.</p>
+    <div id="roadmap"></div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="view-profile" class="view hidden">
+    <h2>Profile</h2>
+    <div class="profile-grid">
+      <div class="profile-card"><div class="big" id="prof-xp">0</div><div>total XP</div></div>
+      <div class="profile-card"><div class="big" id="prof-streak">0</div><div>day streak</div></div>
+      <div class="profile-card"><div class="big" id="prof-lessons">0</div><div>lessons done</div></div>
+    </div>
+    <h3>Last 14 days</h3>
+    <div id="history" class="history"></div>
+    <button id="reset-btn" class="btn danger">Reset all progress</button>
+    <p class="footnote">Progress lives in SQLite on the server, not in browser storage. Reset clears XP, streak, completed lessons, and daily history.</p>
+  </section>
+
+  <!-- LESSON -->
+  <section id="view-lesson" class="view hidden">
+    <div class="lesson-top">
+      <button id="lesson-exit" class="icon-btn" title="Exit lesson">✕</button>
+      <div class="progress"><div id="lesson-progress" class="progress-fill"></div></div>
+      <span class="stat">❤️ <b id="lesson-hearts">5</b></span>
+    </div>
+    <div id="lesson-body"></div>
+    <div id="feedback" class="feedback hidden"></div>
+    <div class="lesson-foot">
+      <button id="lesson-action" class="btn primary big">Continue</button>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
