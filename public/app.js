@@ -1,8 +1,8 @@
 // language-tutor client. Zero dependencies. All lesson phrases below are verbatim
 // text from the FSI Spanish Basic Course (US-government public domain), fetched from
-// fsi-language-courses.org. Units 1 and 3 are playable; the rest of the 55-unit
+// fsi-language-courses.org. Units 1, 2, and 3 are playable; the rest of the 55-unit
 // roadmap is shown locked with its real titles/topics and no invented FSI text.
-// Original FSI tape recordings for Units 1 and 3 are streamed (not bundled) from
+// Original FSI tape recordings for Units 1, 2, and 3 are streamed (not bundled) from
 // Live Lingua's free public-domain archive on the lesson study screens. The tapes
 // are whole-unit recordings, not per-phrase clips, so per-line and listening
 // drills still use the device's Spanish text-to-speech voice.
@@ -81,6 +81,135 @@ const UNITS = [
           { sp: null, es: "Hasta luego.", en: "So long. / See you later." },
         ],
         notes: [],
+      },
+    ],
+  },
+  {
+    n: 2,
+    title: "Useful Phrases & Pronunciation II",
+    grammar: "Voiced stops, vibrants /r/ /rr/, voiceless stops, nasals",
+    lessons: [
+      {
+        id: "u2-l1", title: "Classroom Commands", sub: "¡Adelante! Siéntese. Repita.",
+        cards: [
+          { sp: null, es: "¡Adelante!", en: "Come on in." },
+          { sp: null, es: "Siéntese.", en: "Sit down." },
+          { sp: null, es: "¿Tiene un lápiz?", en: "Do you have a pencil?" },
+          { sp: null, es: "No, no tengo.", en: "No, I don't." },
+          { sp: null, es: "Sí, sí tengo.", en: "Yes, I do." },
+          { sp: null, es: "Repita.", en: "Say it again. / Repeat." },
+          { sp: null, es: "Traduzca.", en: "Translate." },
+          { sp: null, es: "Otra vez, por favor.", en: "Again, please." },
+          { sp: null, es: "Perdón. ¿Cómo dice usted?", en: "Excuse me, what did you say?" },
+        ],
+        notes: [
+          "<b>FSI note:</b> Instead of the entire phrase <i>¿Cómo dice usted?</i> (“What did you say?”), Spanish speakers frequently use only the first word — <i>¿Cómo?</i> — just as English speakers may say only “What?”",
+        ],
+      },
+      {
+        id: "u2-l2", title: "Requesting & Identifying Objects", sub: "Déme la pluma. ¿Qué es eso?",
+        cards: [
+          { sp: null, es: "Déme la pluma.", en: "Give me the pen." },
+          { sp: null, es: "Páseme el libro.", en: "Pass me the book." },
+          { sp: null, es: "¿Qué es eso?", en: "What's that?" },
+          { sp: null, es: "¿Qué es esto?", en: "What's this?" },
+          { sp: null, es: "Esto es un cenicero.", en: "This is an ashtray." },
+          { sp: null, es: "¿Qué quiere decir cenicero?", en: "What does cenicero mean?" },
+          { sp: null, es: "Quiere decir ashtray.", en: "It means ashtray." },
+          { sp: null, es: "¿Cómo se dice table en español?", en: "How do you say table in Spanish?" },
+          { sp: null, es: "Se dice mesa.", en: "You say mesa." },
+          { sp: null, es: "¿Cómo se dice silla en inglés?", en: "How do you say silla in English?" },
+          { sp: null, es: "Se dice chair.", en: "You say chair." },
+        ],
+        notes: [
+          "<b>FSI note:</b> In <i>se dice</i>, the idea of “someone” actually saying the word is not given. Rather, “the word says itself,” making this an impersonal construction translated as “is said” or “you say.”",
+        ],
+      },
+      {
+        id: "u2-l3", title: "Directions", sub: "¿Dónde está el baño? Ahí, a la izquierda.",
+        cards: [
+          { sp: null, es: "¿Dónde está la Embajada Americana?", en: "Where's the American Embassy?" },
+          { sp: null, es: "¿Dónde está el baño?", en: "Where's the bathroom?" },
+          { sp: null, es: "Ahí, a la izquierda.", en: "There, to the left." },
+          { sp: null, es: "Ahí, a la derecha.", en: "There, to the right." },
+          { sp: null, es: "Ahí, adelante.", en: "There, straight ahead." },
+          { sp: null, es: "Llévenos al centro.", en: "Take us downtown." },
+          { sp: null, es: "¿Dónde están los libros?", en: "Where are the books?" },
+          { sp: null, es: "Lléveme al hotel.", en: "Take me to the hotel." },
+          { sp: null, es: "¿Sube o baja?", en: "Going up or down?" },
+          { sp: null, es: "¿Cuánto es?", en: "How much is it?" },
+        ],
+        notes: [
+          "<b>FSI note:</b> <i>¿Sube o baja?</i> — More literally, “Does it (the elevator) go up or does it go down?”",
+        ],
+      },
+      {
+        id: "u2-l4", title: "Numbers 1–21", sub: "uno, dos, tres… veintiuno",
+        cards: [
+          { sp: null, es: "uno", en: "1" },
+          { sp: null, es: "dos", en: "2" },
+          { sp: null, es: "tres", en: "3" },
+          { sp: null, es: "cuatro", en: "4" },
+          { sp: null, es: "cinco", en: "5" },
+          { sp: null, es: "seis", en: "6" },
+          { sp: null, es: "siete", en: "7" },
+          { sp: null, es: "ocho", en: "8" },
+          { sp: null, es: "nueve", en: "9" },
+          { sp: null, es: "diez", en: "10" },
+          { sp: null, es: "once", en: "11" },
+          { sp: null, es: "doce", en: "12" },
+          { sp: null, es: "trece", en: "13" },
+          { sp: null, es: "catorce", en: "14" },
+          { sp: null, es: "quince", en: "15" },
+          { sp: null, es: "dieciséis", en: "16" },
+          { sp: null, es: "diecisiete", en: "17" },
+          { sp: null, es: "dieciocho", en: "18" },
+          { sp: null, es: "diecinueve", en: "19" },
+          { sp: null, es: "veinte", en: "20" },
+          { sp: null, es: "veintiuno", en: "21" },
+        ],
+        notes: [],
+      },
+      {
+        id: "u2-l5", title: "esto & eso", sub: "This and that — the first pattern drill",
+        cards: [
+          { sp: null, es: "¿Qué es eso?", en: "What's that?" },
+          { sp: null, es: "Esto es un cenicero.", en: "This is an ashtray." },
+          { sp: null, es: "¿Qué es esto?", en: "What's this?" },
+          { sp: null, es: "Eso es una silla.", en: "That's a chair." },
+          { sp: null, es: "Eso es bueno.", en: "That's good." },
+          { sp: null, es: "Traduzca esto.", en: "Translate this." },
+          { sp: null, es: "Repita eso.", en: "Repeat that." },
+          { sp: null, es: "Esto no es español.", en: "This isn't Spanish." },
+          { sp: null, es: "¿Qué tal va eso?", en: "How's that going?" },
+          { sp: null, es: "Eso es mucho.", en: "That's too much." },
+          { sp: null, es: "No quiero eso hasta mañana.", en: "I don't want that until tomorrow." },
+          { sp: null, es: "Quiero eso luego.", en: "I want that later." },
+          { sp: null, es: "Siento mucho esto.", en: "I regret this very much." },
+          { sp: null, es: "Esto va muy bien.", en: "This is going very well." },
+          { sp: null, es: "La señorita quiere esto.", en: "The young lady wants this." },
+        ],
+        notes: [
+          "<b>FSI note:</b> <i>Eso</i> refers to an object nearer to the person being addressed; <i>esto</i> refers to an object nearer to the speaker. The <i>-o</i> ending indicates that the speaker either doesn't know the Spanish word for the object, is answering a question that used <i>esto/eso</i>, or is referring to a situation rather than a specific object (as in <i>Eso es bueno</i>).",
+        ],
+      },
+      {
+        id: "u2-l6", title: "Hear the Difference: r vs rr", sub: "pero/perro, caro/carro — tap vs trill",
+        cards: [
+          { sp: null, es: "pero", en: "but" },
+          { sp: null, es: "perro", en: "dog" },
+          { sp: null, es: "caro", en: "expensive" },
+          { sp: null, es: "carro", en: "cart" },
+          { sp: null, es: "para", en: "for" },
+          { sp: null, es: "parra", en: "grapevine" },
+          { sp: null, es: "coro", en: "chorus" },
+          { sp: null, es: "corro", en: "I run" },
+          { sp: null, es: "foro", en: "forum" },
+          { sp: null, es: "forro", en: "lining" },
+        ],
+        notes: [
+          "<b>FSI note:</b> Spanish /r/ sounds do not resemble English “r” in any way. The single /r/ between vowels is a quick tap of the tongue tip — very similar to the English “tt” or “dd” in words like <i>Betty</i>, <i>butter</i>, <i>ladder</i>. The double /rr/ is a rapid trill of the tongue tip, learned best by careful imitation.",
+        ],
       },
     ],
   },
@@ -230,6 +359,10 @@ const UNIT_AUDIO = {
     { label: "Tape A", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 01A.mp3" },
     { label: "Tape B", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 01B.mp3" },
   ],
+  2: [
+    { label: "Tape A", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 02A.mp3" },
+    { label: "Tape B", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 02B.mp3" },
+  ],
   3: [
     { label: "Tape A", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 03A.mp3" },
     { label: "Tape B", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 03B.mp3" },
@@ -318,6 +451,7 @@ function norm(s) {
     .replace(/[¿?¡!.,;:"]/g, "").replace(/\s+/g, " ").trim();
 }
 function speak(text) {
+  stopAudio();
   if (!("speechSynthesis" in window)) return;
   try {
     window.speechSynthesis.cancel();
@@ -329,6 +463,52 @@ function speak(text) {
     u.lang = (pref && pref.lang) || "es";
     window.speechSynthesis.speak(u);
   } catch (e) { /* speech unavailable: drills still work */ }
+}
+
+/* ---------------- Tape segments (from audio-segments.json) ---------------- */
+/* SEGMENTS maps a normalized phrase to {es, tape, start, end} offsets into
+   the original FSI tape for its unit (see tools/build-audio-db.py). The
+   shared segAudio element plays just that clip from the streamed tape;
+   phrases with no segment fall back to TTS. */
+const TAPE_URLS = {
+  "01A": UNIT_AUDIO[1][0].src,
+  "01B": UNIT_AUDIO[1][1].src,
+  "03A": UNIT_AUDIO[3][0].src,
+  "03B": UNIT_AUDIO[3][1].src,
+};
+let SEGMENTS = {};
+let segAudio = null;
+let segTape = null;
+let segEnd = 0;
+let segWatch = null;
+function stopSegment() {
+  if (segWatch) { clearInterval(segWatch); segWatch = null; }
+  if (segAudio) { try { segAudio.pause(); } catch (e) { /* noop */ } }
+}
+function loadSegments() {
+  fetch("/audio-segments.json").then((r) => r.json()).then((j) => { SEGMENTS = j || {}; }).catch(() => { SEGMENTS = {}; });
+}
+function playPhrase(text) {
+  const seg = SEGMENTS[norm(text)];
+  if (!seg || !TAPE_URLS[seg.tape]) { speak(text); return; }
+  stopAudio();
+  if (!segAudio) segAudio = new Audio();
+  segEnd = seg.end;
+  if (segTape !== seg.tape) {
+    segTape = seg.tape;
+    segAudio.src = TAPE_URLS[seg.tape];
+  }
+  const go = () => {
+    try { segAudio.currentTime = seg.start; } catch (e) { /* seek unavailable */ }
+    const p = segAudio.play();
+    if (p && p.catch) p.catch(() => { /* autoplay blocked: user can retry */ });
+  };
+  if (segAudio.readyState >= 1) go();
+  else segAudio.onloadedmetadata = go;
+  if (segWatch) clearInterval(segWatch);
+  segWatch = setInterval(() => {
+    if (segAudio && segAudio.currentTime >= segEnd) stopSegment();
+  }, 100);
 }
 async function api(path, method, body) {
   const res = await fetch(path, {
@@ -375,11 +555,10 @@ function isUnlocked(id) {
 function renderPath() {
   const path = document.getElementById("path");
   let html = "";
-  const unit2 = ROADMAP.find((r) => r[0] === 2);
   const blocks = [
     { unit: UNITS[0], locked: false },
-    { unit: { n: 2, title: unit2[1], grammar: unit2[2], lessons: [] }, locked: true },
     { unit: UNITS[1], locked: false },
+    { unit: UNITS[2], locked: false },
     { unit: { n: "4–55", title: "Units 4–55 — the rest of the course", grammar: "See the Course map for all titles and topics", lessons: [] }, locked: true },
   ];
   for (const b of blocks) {
@@ -413,7 +592,7 @@ function renderRoadmap() {
   for (const [lo, hi, name] of vols) {
     html += `<div class="volume"><h3>${name}</h3>`;
     for (const [n, topic, grammar] of ROADMAP.filter((r) => r[0] >= lo && r[0] <= hi)) {
-      const playable = n === 1 || n === 3;
+      const playable = n === 1 || n === 2 || n === 3;
       html += `<div class="road-unit${playable ? " playable" : ""}"><span class="num">Unit ${n}</span><span><span class="topic">${esc(topic)}</span><br><span class="grammar">${esc(grammar)}${playable ? " · ▶ playable" : " · locked"}</span></span></div>`;
     }
     html += `</div>`;
@@ -484,11 +663,12 @@ function buildSteps(lesson) {
 }
 function bindSpeak(root) {
   root.querySelectorAll("[data-speak]").forEach((b) => {
-    b.addEventListener("click", (e) => { e.stopPropagation(); speak(b.dataset.speak); });
+    b.addEventListener("click", (e) => { e.stopPropagation(); playPhrase(b.dataset.speak); });
   });
 }
 function stopAudio() {
   document.querySelectorAll("#lesson-body audio").forEach((a) => { try { a.pause(); } catch (e) { /* noop */ } });
+  stopSegment();
 }
 function startLesson(id) {
   const found = lessonById(id);
@@ -507,6 +687,7 @@ function setProgressBar() {
   document.getElementById("lesson-progress").style.width = Math.round((L.stepIdx / total) * 100) + "%";
 }
 function renderStep() {
+  stopSegment();
   const body = document.getElementById("lesson-body");
   const fb = document.getElementById("feedback");
   fb.className = "feedback hidden";
@@ -586,7 +767,7 @@ function renderListen(step) {
   const opts = shuffle([step.card.es, ...distractors(L.lesson, step.card, "es", 3)]);
   body.innerHTML = `<div class="prompt">Listen, then pick the phrase you hear.<br><button class="speak" style="font-size:40px" data-speak="${esc(step.card.es)}">🔊</button></div><div class="options">${opts.map((o) => `<button class="opt">${esc(o)}</button>`).join("")}</div>`;
   bindSpeak(body);
-  speak(step.card.es);
+  playPhrase(step.card.es);
   let selected = null;
   body.querySelectorAll(".opt").forEach((b) => {
     b.addEventListener("click", () => {
@@ -715,6 +896,7 @@ function resolveStep(correct, correctDisplay) {
   action.disabled = false;
 }
 function showComplete() {
+  stopSegment();
   document.getElementById("lesson-progress").style.width = "100%";
   const acc = L.answered > 0 ? Math.round((L.correct / L.answered) * 100) : 0;
   document.getElementById("lesson-body").innerHTML = `<div class="complete-box"><div class="trophy">🏆</div><h2>Lesson complete!</h2><p><b>${L.xp} XP</b> earned · ${acc}% accuracy</p><button id="again-btn" class="btn">Practice again</button></div>`;
@@ -731,6 +913,7 @@ function showComplete() {
   }
 }
 function showFail() {
+  stopSegment();
   document.getElementById("lesson-body").innerHTML = `<div class="complete-box"><div class="trophy">💔</div><h2>Out of hearts</h2><p>Review the dialogue and try again — it stays here.</p><button id="retry-btn" class="btn primary">Retry lesson</button></div>`;
   document.getElementById("feedback").className = "feedback hidden";
   const action = document.getElementById("lesson-action");
@@ -769,4 +952,5 @@ document.getElementById("lesson-exit").addEventListener("click", () => { stopAud
 
 /* ---------------- Init ---------------- */
 renderRoadmap();
+loadSegments();
 refreshProgress().then(() => renderPath());

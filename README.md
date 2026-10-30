@@ -60,18 +60,54 @@ option.
 
 ## v1 scope
 
-**Playable: Units 1 and 3 — 10 lessons.**
+**Playable: Units 1, 2, and 3 — 16 lessons.**
 
 - Unit 1, Useful Phrases & Pronunciation I: Greetings, How Are You?,
   Polite Expressions, Introductions, Farewells.
+- Unit 2, Useful Phrases & Pronunciation II: Classroom Commands,
+  Requesting & Identifying Objects, Directions, Numbers 1–21, esto & eso,
+  Hear the Difference: r vs rr.
 - Unit 3, White's Arrival in Surlandia: At the Hotel Room, Going Down &
   the Cashier's Desk, Gender & Translation Drill, ¿Le gusta…? & Location,
   Hay que, ¿Puede…? & ¿Cuánto cuesta…?
 
-All other units (Unit 2 and Units 4–55) appear locked on the course map with
+All other units (Units 4–55) appear locked on the course map with
 their real titles and grammar topics. Adding a unit means fetching its FSI
 dialogue and drill pages and adding its cards to `public/app.js` — the lesson
 engine generates all five drill types from the cards.
+
+## Audio segments (real tape clips per phrase)
+
+Study screens stream the whole-unit FSI tapes, but per-line speaker buttons
+and listening drills play exact clips from those tapes instead of
+text-to-speech whenever a clip is known:
+
+- `public/audio-segments.json` maps each normalized phrase to
+  `{ es, tape, start, end }` — offsets in seconds into the original tape
+  (start = first matched word − 0.2s, end = last matched word + 0.3s).
+  Phrases with no confident match have no entry and keep the TTS fallback;
+  timestamps are never guessed.
+- The player (`playPhrase` in `public/app.js`) seeks one shared audio
+  element to the clip, pauses at the end, cancels any speaking TTS (and vice
+  versa), and stops when the lesson is exited or steps advance. If the JSON
+  fails to load, everything silently stays TTS.
+
+The database is built by `tools/build-audio-db.py`:
+
+```sh
+python3 tools/build-audio-db.py [--model base] [--beam-size 1]
+```
+
+It downloads the four Unit 1/3 tapes from Live Lingua to `/tmp/fsi-tapes`
+(skip if already there), transcribes them locally with faster-whisper
+(word timestamps, Spanish forced, VAD on), fuzzy-matches each app phrase
+against both tapes of its unit (same normalization as the app; ≥80% of the
+phrase's words in order, else unmatched), and writes
+`public/audio-segments.json`. MP3s and raw transcripts stay in `/tmp` and
+are never committed; only the offsets JSON and the script live in the repo.
+Re-running with `--skip-download --skip-transcribe` redoes just the
+alignment. (Live Lingua's Unit 01B file is byte-identical to 01A, so the
+script transcribes it once and reuses the transcript.)
 
 ## Source material & credit
 
@@ -88,9 +124,9 @@ Source pages (fetched 2026-10-30):
   https://www.fsi-language-courses.org/fsi-spanish-basic-course/1-useful-phrases-pronunciation-i/
 - Unit 3, White's Arrival in Surlandia:
   https://www.fsi-language-courses.org/fsi-spanish-basic-course/3-whites-arrival-in-surlandia/
-- Original tape recordings (Units 1 and 3, streamed on study screens):
+- Original tape recordings (Units 1, 2, and 3, streamed on study screens):
   https://www.livelingua.com/course/fsi/spanish-basic-course---volume-1
-  (Unit 01A/01B and Unit 03A/03B MP3s)
+  (Unit 01A/01B, 02A/02B, and 03A/03B MP3s)
 
 ## Files
 
