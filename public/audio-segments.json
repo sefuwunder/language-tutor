@@ -1,0 +1,518 @@
+{
+ "a cinco por uno entonces": {
+  "end": 520.07,
+  "es": "A cinco por uno, entonces.",
+  "start": 518.25,
+  "tape": "03A"
+ },
+ "adios": {
+  "end": 396.46,
+  "es": "Adiós.",
+  "start": 395.16,
+  "tape": "01A"
+ },
+ "ahi esta el mismo cenicero": {
+  "end": 1232.96,
+  "es": "Ahí está el mismo cenicero.",
+  "start": 1231.2,
+  "tape": "03A"
+ },
+ "ahi esta el otro cheque": {
+  "end": 1260.66,
+  "es": "Ahí está el otro cheque.",
+  "start": 1258.86,
+  "tape": "03A"
+ },
+ "ahi esta la misma silla": {
+  "end": 1220.37,
+  "es": "Ahí está la misma silla.",
+  "start": 1215.04,
+  "tape": "03A"
+ },
+ "ahi esta la otra entrada": {
+  "end": 1273.01,
+  "es": "Ahí está la otra entrada.",
+  "start": 1271.29,
+  "tape": "03A"
+ },
+ "bien gracias": {
+  "end": 97.62,
+  "es": "Bien, gracias.",
+  "start": 96.42,
+  "tape": "01A"
+ },
+ "buenas tardes senora": {
+  "end": 46.6,
+  "es": "Buenas tardes, señora.",
+  "start": 44.7,
+  "tape": "01A"
+ },
+ "buenos dias": {
+  "end": 20.02,
+  "es": "Buenos días.",
+  "start": 18.36,
+  "tape": "01A"
+ },
+ "buenos dias senor": {
+  "end": 28.66,
+  "es": "Buenos días, señor.",
+  "start": 26.52,
+  "tape": "01A"
+ },
+ "como esta usted": {
+  "end": 87.68,
+  "es": "¿Cómo está usted?",
+  "start": 85.94,
+  "tape": "01A"
+ },
+ "como le va": {
+  "end": 160.74,
+  "es": "¿Cómo le va?",
+  "start": 159.08,
+  "tape": "01A"
+ },
+ "como lo quiere": {
+  "end": 520.97,
+  "es": "¿Cómo lo quiere?",
+  "start": 519.91,
+  "tape": "03A"
+ },
+ "como no": {
+  "end": 179.82,
+  "es": "Cómo no.",
+  "start": 178.72,
+  "tape": "01A"
+ },
+ "con permiso": {
+  "end": 172.48,
+  "es": "Con permiso.",
+  "start": 170.56,
+  "tape": "01A"
+ },
+ "cuanto cuesta": {
+  "end": 524.55,
+  "es": "¿Cuánto cuesta?",
+  "start": 523.55,
+  "tape": "03A"
+ },
+ "cuanto cuesta un taxi a la embajada": {
+  "end": 714.56,
+  "es": "¿Cuánto cuesta un taxi a la Embajada?",
+  "start": 704.48,
+  "tape": "03A"
+ },
+ "cuanto cuesta un taxi a la embajada americana": {
+  "end": 715.12,
+  "es": "¿Cuánto cuesta un taxi a la Embajada Americana?",
+  "start": 704.48,
+  "tape": "03A"
+ },
+ "cuanto cuesta un taxi al centro": {
+  "end": 525.13,
+  "es": "¿Cuánto cuesta un taxi al centro?",
+  "start": 523.55,
+  "tape": "03A"
+ },
+ "cuanto cuesta un taxi al hotel": {
+  "end": 525.13,
+  "es": "¿Cuánto cuesta un taxi al hotel?",
+  "start": 523.55,
+  "tape": "03A"
+ },
+ "de nada": {
+  "end": 227.56,
+  "es": "De nada.",
+  "start": 226.24,
+  "tape": "01A"
+ },
+ "dispenseme": {
+  "end": 187.12,
+  "es": "Dispénseme.",
+  "start": 185.4,
+  "tape": "01A"
+ },
+ "donde esta el hotel americano": {
+  "end": 1206.42,
+  "es": "¿Dónde está el hotel americano?",
+  "start": 1204.46,
+  "tape": "03A"
+ },
+ "donde esta el senor": {
+  "end": 1073.96,
+  "es": "¿Dónde está el señor?",
+  "start": 1072.48,
+  "tape": "03A"
+ },
+ "donde esta la caja": {
+  "end": 42.51,
+  "es": "¿Dónde está la caja?",
+  "start": 40.81,
+  "tape": "03A"
+ },
+ "donde esta la senora americana": {
+  "end": 1176.12,
+  "es": "¿Dónde está la señora americana?",
+  "start": 1174.4,
+  "tape": "03A"
+ },
+ "donde esta la senorita": {
+  "end": 1081.37,
+  "es": "¿Dónde está la señorita?",
+  "start": 1079.71,
+  "tape": "03A"
+ },
+ "dos pesos mas o menos": {
+  "end": 527.71,
+  "es": "Dos pesos, más o menos.",
+  "start": 526.09,
+  "tape": "03A"
+ },
+ "el bano esta a la derecha": {
+  "end": 1641.8,
+  "es": "El baño está a la derecha.",
+  "start": 1639.38,
+  "tape": "03A"
+ },
+ "en billetes o en cheque": {
+  "end": 516.77,
+  "es": "¿En billetes o en cheque?",
+  "start": 515.09,
+  "tape": "03A"
+ },
+ "en el primer piso a la derecha de la entrada": {
+  "end": 392.61,
+  "es": "En el primer piso, a la derecha de la entrada.",
+  "start": 382.15,
+  "tape": "03A"
+ },
+ "encantado de conocerla": {
+  "end": 351.0,
+  "es": "Encantado de conocerla.",
+  "start": 348.6,
+  "tape": "01A"
+ },
+ "eso es un hotel": {
+  "end": 1003.08,
+  "es": "Eso es un hotel.",
+  "start": 1001.64,
+  "tape": "03A"
+ },
+ "eso es una moneda": {
+  "end": 1038.85,
+  "es": "Eso es una moneda.",
+  "start": 1037.25,
+  "tape": "03A"
+ },
+ "eso es una pluma": {
+  "end": 992.02,
+  "es": "Eso es una pluma.",
+  "start": 990.52,
+  "tape": "03A"
+ },
+ "esta bien": {
+  "end": 212.9,
+  "es": "Está bien.",
+  "start": 210.62,
+  "tape": "01A"
+ },
+ "esta el hotel en el centro": {
+  "end": 1685.0,
+  "es": "¿Está el hotel en el centro?",
+  "start": 1683.12,
+  "tape": "03A"
+ },
+ "este cheque viajero": {
+  "end": 518.29,
+  "es": "Este cheque viajero.",
+  "start": 516.77,
+  "tape": "03A"
+ },
+ "estoy bien gracias y usted": {
+  "end": 98.06,
+  "es": "Estoy bien, gracias. ¿Y usted?",
+  "start": 95.7,
+  "tape": "01A"
+ },
+ "gracias aqui tiene": {
+  "end": 37.17,
+  "es": "Gracias. Aquí tiene.",
+  "start": 35.15,
+  "tape": "03A"
+ },
+ "gracias por la informacion": {
+  "end": 529.35,
+  "es": "Gracias por la información.",
+  "start": 527.81,
+  "tape": "03A"
+ },
+ "hasta luego": {
+  "end": 409.6,
+  "es": "Hasta luego.",
+  "start": 407.46,
+  "tape": "01A"
+ },
+ "hasta manana": {
+  "end": 2614.72,
+  "es": "Hasta mañana.",
+  "start": 2613.5,
+  "tape": "01A"
+ },
+ "hay que decir eso": {
+  "end": 629.5,
+  "es": "¿Hay que decir eso?",
+  "start": 627.96,
+  "tape": "03B"
+ },
+ "hay que tomar algo mas": {
+  "end": 621.74,
+  "es": "¿Hay que tomar algo más?",
+  "start": 616.68,
+  "tape": "03B"
+ },
+ "hay que tomar el ascensor": {
+  "end": 612.81,
+  "es": "¿Hay que tomar el ascensor?",
+  "start": 611.17,
+  "tape": "03B"
+ },
+ "hay que tomar un cuarto": {
+  "end": 603.96,
+  "es": "¿Hay que tomar un cuarto?",
+  "start": 602.42,
+  "tape": "03B"
+ },
+ "hay que tomar un taxi": {
+  "end": 35.65,
+  "es": "Hay que tomar un taxi.",
+  "start": 33.71,
+  "tape": "03A"
+ },
+ "hay que traducir eso": {
+  "end": 638.02,
+  "es": "¿Hay que traducir eso?",
+  "start": 636.32,
+  "tape": "03B"
+ },
+ "igualmente gracias": {
+  "end": 341.8,
+  "es": "Igualmente, gracias.",
+  "start": 339.32,
+  "tape": "01A"
+ },
+ "la caja esta a la izquierda": {
+  "end": 1599.16,
+  "es": "La caja está a la izquierda.",
+  "start": 1592.87,
+  "tape": "03A"
+ },
+ "la embajada no esta lejos de aqui": {
+  "end": 1610.1,
+  "es": "La embajada no está lejos de aquí.",
+  "start": 1607.34,
+  "tape": "03A"
+ },
+ "la senorita esta en la embajada": {
+  "end": 1573.39,
+  "es": "La señorita está en la embajada.",
+  "start": 1570.61,
+  "tape": "03A"
+ },
+ "le gusta el cuarto": {
+  "end": 62.98,
+  "es": "¿Le gusta el cuarto?",
+  "start": 61.24,
+  "tape": "03A"
+ },
+ "lo siento mucho": {
+  "end": 194.38,
+  "es": "Lo siento mucho.",
+  "start": 192.35,
+  "tape": "01A"
+ },
+ "muchas gracias": {
+  "end": 222.12,
+  "es": "Muchas gracias.",
+  "start": 218.82,
+  "tape": "01A"
+ },
+ "muchas gracias senor": {
+  "end": 38.63,
+  "es": "Muchas gracias, señor.",
+  "start": 36.67,
+  "tape": "03A"
+ },
+ "mucho gusto": {
+  "end": 334.62,
+  "es": "Mucho gusto.",
+  "start": 332.38,
+  "tape": "01A"
+ },
+ "mucho gusto de conocerlo": {
+  "end": 375.66,
+  "es": "Mucho gusto de conocerlo.",
+  "start": 371.92,
+  "tape": "01A"
+ },
+ "muy bien gracias": {
+  "end": 129.58,
+  "es": "Muy bien, gracias.",
+  "start": 127.9,
+  "tape": "01A"
+ },
+ "necesita algo mas": {
+  "end": 138.86,
+  "es": "¿Necesita algo más?",
+  "start": 136.38,
+  "tape": "03A"
+ },
+ "necesita una pluma": {
+  "end": 1667.52,
+  "es": "¿Necesita una pluma?",
+  "start": 1665.32,
+  "tape": "03A"
+ },
+ "no esta a la derecha": {
+  "end": 548.5,
+  "es": "No, está a la derecha.",
+  "start": 546.62,
+  "tape": "03B"
+ },
+ "no esta a la izquierda": {
+  "end": 556.93,
+  "es": "No, está a la izquierda.",
+  "start": 555.01,
+  "tape": "03B"
+ },
+ "no esta adelante": {
+  "end": 565.85,
+  "es": "No, está adelante.",
+  "start": 563.79,
+  "tape": "03B"
+ },
+ "no esta cerca": {
+  "end": 540.55,
+  "es": "No, está cerca.",
+  "start": 538.97,
+  "tape": "03B"
+ },
+ "no esta lejos en la avenida de colon": {
+  "end": 213.03,
+  "es": "No. Está lejos. En la avenida de Colón.",
+  "start": 209.95,
+  "tape": "03A"
+ },
+ "no esto no es un billete": {
+  "end": 1562.96,
+  "es": "No, esto no es un billete.",
+  "start": 1553.34,
+  "tape": "03A"
+ },
+ "no hay de que": {
+  "end": 233.16,
+  "es": "No hay de qué.",
+  "start": 231.54,
+  "tape": "01A"
+ },
+ "ocho en billetes y dos en moneda": {
+  "end": 768.96,
+  "es": "Ocho en billetes y dos en moneda.",
+  "start": 766.24,
+  "tape": "03A"
+ },
+ "quiere una silla": {
+  "end": 1580.87,
+  "es": "¿Quiere una silla?",
+  "start": 1578.85,
+  "tape": "03A"
+ },
+ "quiere usted agua mineral": {
+  "end": 89.8,
+  "es": "¿Quiere usted agua mineral?",
+  "start": 87.98,
+  "tape": "03A"
+ },
+ "quiero presentarle a la senora de molina": {
+  "end": 290.08,
+  "es": "Quiero presentarle a la señora de Molina.",
+  "start": 286.76,
+  "tape": "01A"
+ },
+ "quiero presentarle a una senorita": {
+  "end": 1620.69,
+  "es": "Quiero presentarle a una señorita.",
+  "start": 1613.9,
+  "tape": "03A"
+ },
+ "quiero presentarle al senor molina": {
+  "end": 242.74,
+  "es": "Quiero presentarle al señor Molina.",
+  "start": 240.2,
+  "tape": "01A"
+ },
+ "si ahora mismo": {
+  "end": 41.31,
+  "es": "Sí, ahora mismo.",
+  "start": 39.43,
+  "tape": "03A"
+ },
+ "si cuantos": {
+  "end": 512.79,
+  "es": "Sí. ¿Cuántos?",
+  "start": 511.29,
+  "tape": "03A"
+ },
+ "si esta a la entrada": {
+  "end": 45.33,
+  "es": "Sí, está a la entrada.",
+  "start": 39.43,
+  "tape": "03A"
+ },
+ "si esta ahi": {
+  "end": 589.74,
+  "es": "Sí, está ahí.",
+  "start": 588.14,
+  "tape": "03B"
+ },
+ "si esta aqui": {
+  "end": 1533.74,
+  "es": "Sí, está aquí.",
+  "start": 1532.38,
+  "tape": "03A"
+ },
+ "si esta la embajada americana cerca de aqui": {
+  "end": 159.03,
+  "es": "Sí. ¿Está la Embajada Americana cerca de aquí?",
+  "start": 155.23,
+  "tape": "03A"
+ },
+ "si me gusta": {
+  "end": 81.67,
+  "es": "Sí, me gusta.",
+  "start": 80.55,
+  "tape": "03A"
+ },
+ "tengo un cuarto en el hotel": {
+  "end": 1652.02,
+  "es": "Tengo un cuarto en el hotel.",
+  "start": 1646.5,
+  "tape": "03A"
+ },
+ "tiene el cheque o no": {
+  "end": 1589.26,
+  "es": "¿Tiene el cheque o no?",
+  "start": 1584.13,
+  "tape": "03A"
+ },
+ "tiene un lapiz bueno": {
+  "end": 1315.74,
+  "es": "Tiene un lápiz bueno.",
+  "start": 1313.64,
+  "tape": "03A"
+ },
+ "tiene una pluma buena": {
+  "end": 1304.26,
+  "es": "Tiene una pluma buena.",
+  "start": 1295.26,
+  "tape": "03A"
+ }
+}

@@ -100,7 +100,7 @@ def download(tapes_dir):
         print(f"[{code}] -> {dest} ({dest.stat().st_size} bytes)", flush=True)
 
 
-def transcribe_all(tapes_dir, model_name, beam_size):
+def transcribe_all(tapes_dir, model_name, beam_size, vad_filter=False):
     """Return {tape code: [(normalized word, start, end), ...]}."""
     try:
         from faster_whisper import WhisperModel
@@ -144,18 +144,11 @@ def transcribe_all(tapes_dir, model_name, beam_size):
             tpath.write_text(json.dumps({"tape": code, "words": words}, ensure_ascii=False))
             out[code] = [(norm(w["w"]), w["start"], w["end"]) for w in words if norm(w["w"])]
             continue
-        print(f"[{code}] transcribing {fname} (model={model_name}, beam={beam_size}) ...", flush=True)
-        try:
-            segments, _info = model.transcribe(
-                str(tapes_dir / fname), language="es", word_timestamps=True,
-                vad_filter=True, beam_size=beam_size)
-            words = collect_words(segments)
-        except Exception as e:  # e.g. VAD backend unavailable: retry without it
-            print(f"[{code}] transcribe with VAD failed ({e}); retrying without VAD ...", flush=True)
-            segments, _info = model.transcribe(
-                str(tapes_dir / fname), language="es", word_timestamps=True,
-                vad_filter=False, beam_size=beam_size)
-            words = collect_words(segments)
+        print(f"[{code}] transcribing {fname} (model={model_name}, beam={beam_size}, vad={vad_filter}) ...", flush=True)
+        segments, _info = model.transcribe(
+            str(tapes_dir / fname), language="es", word_timestamps=True,
+            vad_filter=vad_filter, beam_size=beam_size)
+        words = collect_words(segments)
         tpath.parent.mkdir(parents=True, exist_ok=True)
         tpath.write_text(json.dumps({"tape": code, "words": words}, ensure_ascii=False))
         print(f"[{code}] done: {len(words)} words", flush=True)
@@ -257,6 +250,10 @@ def main():
                     help="faster-whisper model (default: base; small is more accurate but slower)")
     ap.add_argument("--beam-size", type=int, default=1,
                     help="decoding beam size (default: 1, greedy)")
+    ap.add_argument("--vad-filter", action="store_true",
+                    help="enable Silero VAD pre-filtering (default: off -- VAD "
+                    "dropped the opening ~2 minutes of Unit 1 in testing, so "
+                    "completeness wins over speed)")
     ap.add_argument("--tapes-dir", default="/tmp/fsi-tapes")
     ap.add_argument("--skip-download", action="store_true")
     ap.add_argument("--skip-transcribe", action="store_true")
@@ -271,7 +268,7 @@ def main():
 
     transcripts = {}
     if not args.skip_transcribe:
-        transcripts = transcribe_all(tapes_dir, args.model, args.beam_size)
+        transcripts = transcribe_all(tapes_dir, args.model, args.beam_size, args.vad_filter)
     else:
         for code in TAPES:
             tpath = tapes_dir / "transcripts" / f"{code}.words.json"

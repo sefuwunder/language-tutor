@@ -100,8 +100,9 @@ python3 tools/build-audio-db.py [--model base] [--beam-size 1]
 
 It downloads the four Unit 1/3 tapes from Live Lingua to `/tmp/fsi-tapes`
 (skip if already there), transcribes them locally with faster-whisper
-(word timestamps, Spanish forced, VAD on), fuzzy-matches each app phrase
-against both tapes of its unit (same normalization as the app; ≥80% of the
+(word timestamps, Spanish forced, VAD off by default — VAD dropped the
+opening ~2 minutes of Unit 1 in testing, so completeness wins over speed),
+fuzzy-matches each app phrase against both tapes of its unit (same normalization as the app; ≥80% of the
 phrase's words in order, else unmatched), and writes
 `public/audio-segments.json`. MP3s and raw transcripts stay in `/tmp` and
 are never committed; only the offsets JSON and the script live in the repo.
