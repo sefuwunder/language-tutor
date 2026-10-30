@@ -2,6 +2,10 @@
 // text from the FSI Spanish Basic Course (US-government public domain), fetched from
 // fsi-language-courses.org. Units 1 and 3 are playable; the rest of the 55-unit
 // roadmap is shown locked with its real titles/topics and no invented FSI text.
+// Original FSI tape recordings for Units 1 and 3 are streamed (not bundled) from
+// Live Lingua's free public-domain archive on the lesson study screens. The tapes
+// are whole-unit recordings, not per-phrase clips, so per-line and listening
+// drills still use the device's Spanish text-to-speech voice.
 "use strict";
 
 /* ---------------- Curriculum: verbatim FSI pairs ---------------- */
@@ -217,6 +221,20 @@ const UNITS = [
     ],
   },
 ];
+
+/* ---------------- Original FSI tapes (streamed, not bundled) ---------------- */
+/* Whole-unit tapes from Live Lingua's free public-domain FSI archive, verified
+   on the course page (FSI Spanish Basic Course - Volume 1). Keys are unit numbers. */
+const UNIT_AUDIO = {
+  1: [
+    { label: "Tape A", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 01A.mp3" },
+    { label: "Tape B", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 01B.mp3" },
+  ],
+  3: [
+    { label: "Tape A", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 03A.mp3" },
+    { label: "Tape B", src: "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 03B.mp3" },
+  ],
+};
 
 /* ---------------- Roadmap: real FSI unit titles/topics ---------------- */
 const ROADMAP = [
@@ -469,6 +487,9 @@ function bindSpeak(root) {
     b.addEventListener("click", (e) => { e.stopPropagation(); speak(b.dataset.speak); });
   });
 }
+function stopAudio() {
+  document.querySelectorAll("#lesson-body audio").forEach((a) => { try { a.pause(); } catch (e) { /* noop */ } });
+}
 function startLesson(id) {
   const found = lessonById(id);
   if (!found) return;
@@ -498,6 +519,11 @@ function renderStep() {
     action.textContent = "Start drills";
     action.disabled = false;
     let html = `<div class="prompt">Study the dialogue — tap 🔊 to hear each line.</div>`;
+    const tapes = UNIT_AUDIO[L.unit.n] || [];
+    if (tapes.length) {
+      html += `<div class="fsi-audio"><div class="fsi-audio-head">🎧 Original FSI recording</div><p>Full-unit tapes from the original course, streamed from Live Lingua (public domain). These are whole tapes, not per-phrase clips — follow along with the dialogue below.</p>` +
+        tapes.map((t) => `<div class="tape"><span>${esc(t.label)}</span><audio controls preload="none" src="${esc(t.src)}"></audio></div>`).join("") + `</div>`;
+    }
     for (const c of L.lesson.cards) {
       html += `<div class="study-card"><button class="speak" data-speak="${esc(c.es)}">🔊</button>${c.sp ? `<div class="speaker">${esc(c.sp)}</div>` : ""}<div class="es">${esc(c.es)}</div><div class="en">${esc(c.en)}</div></div>`;
     }
@@ -737,9 +763,9 @@ document.getElementById("lesson-action").addEventListener("click", () => {
     else renderStep();
     return;
   }
-  if (L.phase === "done") { showView("learn"); return; }
+  if (L.phase === "done") { stopAudio(); showView("learn"); return; }
 });
-document.getElementById("lesson-exit").addEventListener("click", () => { L = null; showView("learn"); });
+document.getElementById("lesson-exit").addEventListener("click", () => { stopAudio(); L = null; showView("learn"); });
 
 /* ---------------- Init ---------------- */
 renderRoadmap();

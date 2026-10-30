@@ -32,6 +32,14 @@ pairs:
 - Listening (hear the Spanish, pick the written phrase)
 - Matching pairs
 
+Audio: each lesson's study screen also carries the original FSI tape
+recordings for its unit (Tape A and Tape B), streamed from Live Lingua's free
+public-domain FSI archive — not bundled with the repo, so the repo stays light.
+The tapes are whole-unit recordings, not per-phrase clips: per-line 🔊 buttons
+and listening drills still use the device's Spanish speech voice. If Live
+Lingua is unreachable, the players simply can't load and everything else
+still works.
+
 Hearts: 5 per lesson. A wrong answer loses one heart; 0 hearts fails the
 lesson with a retry screen. The lesson-complete screen shows XP earned and
 accuracy. Locked lessons unlock by completing the previous one.
@@ -80,6 +88,9 @@ Source pages (fetched 2026-10-30):
   https://www.fsi-language-courses.org/fsi-spanish-basic-course/1-useful-phrases-pronunciation-i/
 - Unit 3, White's Arrival in Surlandia:
   https://www.fsi-language-courses.org/fsi-spanish-basic-course/3-whites-arrival-in-surlandia/
+- Original tape recordings (Units 1 and 3, streamed on study screens):
+  https://www.livelingua.com/course/fsi/spanish-basic-course---volume-1
+  (Unit 01A/01B and Unit 03A/03B MP3s)
 
 ## Files
 
