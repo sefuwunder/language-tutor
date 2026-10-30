@@ -1,0 +1,4 @@
+# Live user progress must never be pushed.
+*.db
+*.db-journal
+data/
