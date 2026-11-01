@@ -5,6 +5,12 @@
   "start": 518.25,
   "tape": "03A"
  },
+ "adelante": {
+  "end": 23.5,
+  "es": "¡Adelante!",
+  "start": 21.8,
+  "tape": "02A"
+ },
  "adios": {
   "end": 396.46,
   "es": "Adiós.",
@@ -59,6 +65,24 @@
   "start": 26.52,
   "tape": "01A"
  },
+ "carro": {
+  "end": 1076.64,
+  "es": "carro",
+  "start": 1075.66,
+  "tape": "02A"
+ },
+ "catorce": {
+  "end": 645.32,
+  "es": "catorce",
+  "start": 644.16,
+  "tape": "02A"
+ },
+ "cinco": {
+  "end": 599.28,
+  "es": "cinco",
+  "start": 598.02,
+  "tape": "02A"
+ },
  "como esta usted": {
   "end": 87.68,
   "es": "¿Cómo está usted?",
@@ -83,11 +107,35 @@
   "start": 178.72,
   "tape": "01A"
  },
+ "como se dice silla en ingles": {
+  "end": 320.9,
+  "es": "¿Cómo se dice silla en inglés?",
+  "start": 318.6,
+  "tape": "02A"
+ },
+ "como se dice table en espanol": {
+  "end": 264.78,
+  "es": "¿Cómo se dice table en español?",
+  "start": 262.04,
+  "tape": "02A"
+ },
  "con permiso": {
   "end": 172.48,
   "es": "Con permiso.",
   "start": 170.56,
   "tape": "01A"
+ },
+ "coro": {
+  "end": 929.26,
+  "es": "coro",
+  "start": 928.16,
+  "tape": "02A"
+ },
+ "corro": {
+  "end": 929.26,
+  "es": "corro",
+  "start": 928.16,
+  "tape": "02A"
  },
  "cuanto cuesta": {
   "end": 524.55,
@@ -119,17 +167,71 @@
   "start": 523.55,
   "tape": "03A"
  },
+ "cuanto es": {
+  "end": 571.26,
+  "es": "¿Cuánto es?",
+  "start": 569.9,
+  "tape": "02A"
+ },
+ "cuatro": {
+  "end": 593.52,
+  "es": "cuatro",
+  "start": 592.32,
+  "tape": "02A"
+ },
  "de nada": {
   "end": 227.56,
   "es": "De nada.",
   "start": 226.24,
   "tape": "01A"
  },
+ "diecinueve": {
+  "end": 1353.58,
+  "es": "diecinueve",
+  "start": 1352.46,
+  "tape": "02A"
+ },
+ "dieciocho": {
+  "end": 1275.96,
+  "es": "dieciocho",
+  "start": 1274.92,
+  "tape": "02A"
+ },
+ "dieciseis": {
+  "end": 656.7,
+  "es": "dieciséis",
+  "start": 654.8,
+  "tape": "02A"
+ },
+ "diecisiete": {
+  "end": 1222.58,
+  "es": "diecisiete",
+  "start": 1221.48,
+  "tape": "02A"
+ },
+ "diez": {
+  "end": 625.22,
+  "es": "diez",
+  "start": 623.32,
+  "tape": "02A"
+ },
  "dispenseme": {
   "end": 187.12,
   "es": "Dispénseme.",
   "start": 185.4,
   "tape": "01A"
+ },
+ "doce": {
+  "end": 635.1,
+  "es": "doce",
+  "start": 633.3,
+  "tape": "02A"
+ },
+ "donde esta el bano": {
+  "end": 402.22,
+  "es": "¿Dónde está el baño?",
+  "start": 400.26,
+  "tape": "02A"
  },
  "donde esta el hotel americano": {
   "end": 1206.42,
@@ -149,6 +251,12 @@
   "start": 40.81,
   "tape": "03A"
  },
+ "donde esta la embajada americana": {
+  "end": 364.34,
+  "es": "¿Dónde está la Embajada Americana?",
+  "start": 361.28,
+  "tape": "02A"
+ },
  "donde esta la senora americana": {
   "end": 1176.12,
   "es": "¿Dónde está la señora americana?",
@@ -160,6 +268,18 @@
   "es": "¿Dónde está la señorita?",
   "start": 1079.71,
   "tape": "03A"
+ },
+ "donde estan los libros": {
+  "end": 511.72,
+  "es": "¿Dónde están los libros?",
+  "start": 509.3,
+  "tape": "02A"
+ },
+ "dos": {
+  "end": 584.5,
+  "es": "dos",
+  "start": 583.3,
+  "tape": "02A"
  },
  "dos pesos mas o menos": {
   "end": 527.71,
@@ -191,6 +311,18 @@
   "start": 348.6,
   "tape": "01A"
  },
+ "eso es bueno": {
+  "end": 2259.02,
+  "es": "Eso es bueno.",
+  "start": 2257.1,
+  "tape": "02A"
+ },
+ "eso es mucho": {
+  "end": 2517.52,
+  "es": "Eso es mucho.",
+  "start": 2515.76,
+  "tape": "02A"
+ },
  "eso es un hotel": {
   "end": 1003.08,
   "es": "Eso es un hotel.",
@@ -208,6 +340,12 @@
   "es": "Eso es una pluma.",
   "start": 990.52,
   "tape": "03A"
+ },
+ "eso es una silla": {
+  "end": 2250.28,
+  "es": "Eso es una silla.",
+  "start": 2248.08,
+  "tape": "02A"
  },
  "esta bien": {
   "end": 212.9,
@@ -227,11 +365,35 @@
   "start": 516.77,
   "tape": "03A"
  },
+ "esto es un cenicero": {
+  "end": 177.58,
+  "es": "Esto es un cenicero.",
+  "start": 175.26,
+  "tape": "02A"
+ },
+ "esto no es espanol": {
+  "end": 2485.86,
+  "es": "Esto no es español.",
+  "start": 2478.16,
+  "tape": "02A"
+ },
+ "esto va muy bien": {
+  "end": 2562.6,
+  "es": "Esto va muy bien.",
+  "start": 2560.48,
+  "tape": "02A"
+ },
  "estoy bien gracias y usted": {
   "end": 98.06,
   "es": "Estoy bien, gracias. ¿Y usted?",
   "start": 95.7,
   "tape": "01A"
+ },
+ "forro": {
+  "end": 1076.64,
+  "es": "forro",
+  "start": 1075.66,
+  "tape": "02A"
  },
  "gracias aqui tiene": {
   "end": 37.17,
@@ -413,11 +575,95 @@
   "start": 231.54,
   "tape": "01A"
  },
+ "no no tengo": {
+  "end": 51.9,
+  "es": "No, no tengo.",
+  "start": 46.66,
+  "tape": "02A"
+ },
+ "no quiero eso hasta manana": {
+  "end": 2528.98,
+  "es": "No quiero eso hasta mañana.",
+  "start": 2526.34,
+  "tape": "02A"
+ },
+ "nueve": {
+  "end": 620.08,
+  "es": "nueve",
+  "start": 618.88,
+  "tape": "02A"
+ },
+ "ocho": {
+  "end": 615.14,
+  "es": "ocho",
+  "start": 613.94,
+  "tape": "02A"
+ },
  "ocho en billetes y dos en moneda": {
   "end": 768.96,
   "es": "Ocho en billetes y dos en moneda.",
   "start": 766.24,
   "tape": "03A"
+ },
+ "once": {
+  "end": 630.34,
+  "es": "once",
+  "start": 628.44,
+  "tape": "02A"
+ },
+ "para": {
+  "end": 1065.24,
+  "es": "para",
+  "start": 1064.13,
+  "tape": "02A"
+ },
+ "parra": {
+  "end": 1065.24,
+  "es": "parra",
+  "start": 1064.13,
+  "tape": "02A"
+ },
+ "paseme el libro": {
+  "end": 149.32,
+  "es": "Páseme el libro.",
+  "start": 147.04,
+  "tape": "02A"
+ },
+ "perro": {
+  "end": 1081.74,
+  "es": "perro",
+  "start": 1080.68,
+  "tape": "02A"
+ },
+ "que es eso": {
+  "end": 169.68,
+  "es": "¿Qué es eso?",
+  "start": 167.52,
+  "tape": "02A"
+ },
+ "que es esto": {
+  "end": 2241.84,
+  "es": "¿Qué es esto?",
+  "start": 2239.98,
+  "tape": "02A"
+ },
+ "que quiere decir cenicero": {
+  "end": 214.06,
+  "es": "¿Qué quiere decir cenicero?",
+  "start": 211.74,
+  "tape": "02A"
+ },
+ "que tal va eso": {
+  "end": 2495.14,
+  "es": "¿Qué tal va eso?",
+  "start": 2491.48,
+  "tape": "02A"
+ },
+ "quiere decir ashtray": {
+  "end": 253.46,
+  "es": "Quiere decir ashtray.",
+  "start": 250.38,
+  "tape": "02A"
  },
  "quiere una silla": {
   "end": 1580.87,
@@ -430,6 +676,12 @@
   "es": "¿Quiere usted agua mineral?",
   "start": 87.98,
   "tape": "03A"
+ },
+ "quiero eso luego": {
+  "end": 799.26,
+  "es": "Quiero eso luego.",
+  "start": 796.36,
+  "tape": "02B"
  },
  "quiero presentarle a la senora de molina": {
   "end": 290.08,
@@ -448,6 +700,42 @@
   "es": "Quiero presentarle al señor Molina.",
   "start": 240.2,
   "tape": "01A"
+ },
+ "quince": {
+  "end": 650.96,
+  "es": "quince",
+  "start": 649.06,
+  "tape": "02A"
+ },
+ "repita": {
+  "end": 2274.88,
+  "es": "Repita.",
+  "start": 2273.52,
+  "tape": "02A"
+ },
+ "repita eso": {
+  "end": 2275.18,
+  "es": "Repita eso.",
+  "start": 2273.52,
+  "tape": "02A"
+ },
+ "se dice chair": {
+  "end": 354.14,
+  "es": "Se dice chair.",
+  "start": 351.38,
+  "tape": "02A"
+ },
+ "se dice mesa": {
+  "end": 302.34,
+  "es": "Se dice mesa.",
+  "start": 299.94,
+  "tape": "02A"
+ },
+ "seis": {
+  "end": 604.82,
+  "es": "seis",
+  "start": 602.92,
+  "tape": "02A"
  },
  "si ahora mismo": {
   "end": 41.31,
@@ -491,6 +779,30 @@
   "start": 80.55,
   "tape": "03A"
  },
+ "si si tengo": {
+  "end": 61.14,
+  "es": "Sí, sí tengo.",
+  "start": 59.14,
+  "tape": "02A"
+ },
+ "sientese": {
+  "end": 28.1,
+  "es": "Siéntese.",
+  "start": 26.4,
+  "tape": "02A"
+ },
+ "siento mucho esto": {
+  "end": 2552.0,
+  "es": "Siento mucho esto.",
+  "start": 2549.92,
+  "tape": "02A"
+ },
+ "siete": {
+  "end": 609.66,
+  "es": "siete",
+  "start": 607.76,
+  "tape": "02A"
+ },
  "tengo un cuarto en el hotel": {
   "end": 1652.02,
   "es": "Tengo un cuarto en el hotel.",
@@ -514,5 +826,47 @@
   "es": "Tiene una pluma buena.",
   "start": 1295.26,
   "tape": "03A"
+ },
+ "traduzca": {
+  "end": 2266.98,
+  "es": "Traduzca.",
+  "start": 2265.66,
+  "tape": "02A"
+ },
+ "traduzca esto": {
+  "end": 2267.38,
+  "es": "Traduzca esto.",
+  "start": 2265.66,
+  "tape": "02A"
+ },
+ "trece": {
+  "end": 639.92,
+  "es": "trece",
+  "start": 638.58,
+  "tape": "02A"
+ },
+ "tres": {
+  "end": 588.74,
+  "es": "tres",
+  "start": 587.54,
+  "tape": "02A"
+ },
+ "uno": {
+  "end": 98.82,
+  "es": "uno",
+  "start": 98.32,
+  "tape": "02A"
+ },
+ "veinte": {
+  "end": 662.34,
+  "es": "veinte",
+  "start": 660.44,
+  "tape": "02A"
+ },
+ "veintiuno": {
+  "end": 667.72,
+  "es": "veintiuno",
+  "start": 666.0,
+  "tape": "02A"
  }
 }

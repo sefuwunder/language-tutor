@@ -473,6 +473,8 @@ function speak(text) {
 const TAPE_URLS = {
   "01A": UNIT_AUDIO[1][0].src,
   "01B": UNIT_AUDIO[1][1].src,
+  "02A": UNIT_AUDIO[2][0].src,
+  "02B": UNIT_AUDIO[2][1].src,
   "03A": UNIT_AUDIO[3][0].src,
   "03B": UNIT_AUDIO[3][1].src,
 };

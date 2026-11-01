@@ -44,6 +44,10 @@ TAPES = {
             "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 01A.mp3"),
     "01B": (1, "Unit 01B.mp3",
             "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 01B.mp3"),
+    "02A": (2, "Unit 02A.mp3",
+            "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 02A.mp3"),
+    "02B": (2, "Unit 02B.mp3",
+            "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 02B.mp3"),
     "03A": (3, "Unit 03A.mp3",
             "https://www.livelingua.com/fsi/Spanish/Basic/Volume 1/FSI - Spanish Basic Course - Volume 1 - Unit 03A.mp3"),
     "03B": (3, "Unit 03B.mp3",
@@ -54,6 +58,10 @@ MIN_MATCH = 0.8  # at least 80% of a phrase's words, in order
 START_PAD = 0.2  # seconds before the first matched word
 END_PAD = 0.3    # seconds after the last matched word
 LOOKAHEAD = 8    # transcript words scanned for each phrase word
+HEADER_SKIP = 10.0  # seconds of spoken tape header (series/unit title)
+# ignored for alignment: Whisper hears the English header as Spanish
+# words ("Unit Two" -> "unit dos"), which would otherwise win the
+# first-occurrence tie-break for number phrases over the real drill.
 
 
 def norm(s):
@@ -66,12 +74,56 @@ def norm(s):
     return s
 
 
-def parse_phrases(text):
+_ONES = ["cero", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete",
+         "ocho", "nueve", "diez", "once", "doce", "trece", "catorce", "quince"]
+_TENS = ["", "diez", "veinte", "treinta", "cuarenta", "cincuenta",
+         "sesenta", "setenta", "ochenta", "noventa"]
+
+
+def number_word(n):
+    """Spanish word for 0..99, or None outside that range."""
+    if 0 <= n <= 15:
+        return _ONES[n]
+    if 16 <= n <= 19:
+        return "dieci" + _ONES[n - 10]
+    if n == 20:
+        return "veinte"
+    if 21 <= n <= 29:
+        return "veinti" + _ONES[n - 20]
+    if 30 <= n <= 99:
+        t, o = divmod(n, 10)
+        return _TENS[t] if o == 0 else _TENS[t] + " y " + _ONES[o]
+    return None
+
+
+def transcript_word(raw):
+    """Transcript word, normalized like norm(), except Whisper's numeral
+    tokens map back to the Spanish word the speaker said ("1" -> "uno"):
+    without this, number drills never match their phrases, since the
+    phrases spell the numbers out."""
+    n = norm(raw)
+    if n.isdigit():
+        return number_word(int(n)) or n
+    return n
+
+
+def transcript_words(words):
+    """[(word, start, end)] for raw transcript words, dropping empties."""
+    out = []
+    for w in words:
+        t = transcript_word(w["w"])
+        if t:
+            out.append((t, w["start"], w["end"]))
+    return out
+
+
+def parse_phrases(text, units):
     """Extract {(normalized phrase): (unit, original Spanish)} from app.js.
 
     Only the UNITS section (before the Roadmap marker) is scanned, so the
     roadmap titles and the tape-URL tables cannot leak in as phrases.
-    First occurrence wins when two cards normalize to the same key.
+    Only the given units are kept. First occurrence wins when two cards
+    normalize to the same key.
     """
     units_text = text.split("/* ---------------- Roadmap")[0]
     phrases = {}
@@ -81,7 +133,7 @@ def parse_phrases(text):
             cur = int(m.group(1))
         else:
             es = m.group(2).replace('\\"', '"').replace("\\\\", "\\")
-            if cur in (1, 3):
+            if cur in units:
                 phrases.setdefault(norm(es), (cur, es))
     return phrases
 
@@ -132,7 +184,7 @@ def transcribe_all(tapes_dir, model_name, beam_size, vad_filter=False):
         if tpath.exists():
             words = json.loads(tpath.read_text())["words"]
             print(f"[{code}] reused transcript: {len(words)} words", flush=True)
-            out[code] = [(norm(w["w"]), w["start"], w["end"]) for w in words if norm(w["w"])]
+            out[code] = transcript_words(words)
             seen.setdefault(hashlib.md5((tapes_dir / fname).read_bytes()).hexdigest(), (code, tpath))
             continue
         h = hashlib.md5((tapes_dir / fname).read_bytes()).hexdigest()
@@ -142,7 +194,7 @@ def transcribe_all(tapes_dir, model_name, beam_size, vad_filter=False):
             words = json.loads(src_path.read_text())["words"]
             tpath.parent.mkdir(parents=True, exist_ok=True)
             tpath.write_text(json.dumps({"tape": code, "words": words}, ensure_ascii=False))
-            out[code] = [(norm(w["w"]), w["start"], w["end"]) for w in words if norm(w["w"])]
+            out[code] = transcript_words(words)
             continue
         print(f"[{code}] transcribing {fname} (model={model_name}, beam={beam_size}, vad={vad_filter}) ...", flush=True)
         segments, _info = model.transcribe(
@@ -152,7 +204,7 @@ def transcribe_all(tapes_dir, model_name, beam_size, vad_filter=False):
         tpath.parent.mkdir(parents=True, exist_ok=True)
         tpath.write_text(json.dumps({"tape": code, "words": words}, ensure_ascii=False))
         print(f"[{code}] done: {len(words)} words", flush=True)
-        out[code] = [(norm(w["w"]), w["start"], w["end"]) for w in words if norm(w["w"])]
+        out[code] = transcript_words(words)
         seen[h] = (code, tpath)
     return out
 
@@ -195,6 +247,8 @@ def best_window(pwords, t):
     best = None
     n = len(pwords)
     for i in range(len(t)):
+        if t[i][1] < HEADER_SKIP:
+            continue
         if not word_match(pwords[0], t[i][0]):
             continue
         j = i
@@ -255,10 +309,31 @@ def main():
                     "dropped the opening ~2 minutes of Unit 1 in testing, so "
                     "completeness wins over speed)")
     ap.add_argument("--tapes-dir", default="/tmp/fsi-tapes")
+    ap.add_argument("--tapes", default=None,
+                    help="comma list of tape codes to process (default: all, "
+                    "e.g. --tapes 02A,02B)")
+    ap.add_argument("--units", default=None,
+                    help="comma list of units to align (default: every unit "
+                    "in TAPES, e.g. --units 2)")
+    ap.add_argument("--merge", action="store_true",
+                    help="merge new entries into the existing audio-segments.json "
+                    "instead of overwriting it (keeps other units verbatim)")
     ap.add_argument("--skip-download", action="store_true")
     ap.add_argument("--skip-transcribe", action="store_true")
     ap.add_argument("--skip-align", action="store_true")
     args = ap.parse_args()
+
+    global TAPES
+    if args.tapes:
+        wanted = [c.strip() for c in args.tapes.split(",") if c.strip()]
+        unknown = [c for c in wanted if c not in TAPES]
+        if unknown:
+            print(f"ERROR: unknown tape code(s): {', '.join(unknown)}", file=sys.stderr)
+            sys.exit(2)
+        TAPES = {c: TAPES[c] for c in wanted}
+    units = sorted({u for (u, _f, _u) in TAPES.values()})
+    if args.units:
+        units = sorted(int(u) for u in args.units.split(",") if u.strip())
 
     tapes_dir = Path(args.tapes_dir)
     tapes_dir.mkdir(parents=True, exist_ok=True)
@@ -276,19 +351,23 @@ def main():
                 print(f"ERROR: transcript missing for {code}: {tpath}", file=sys.stderr)
                 sys.exit(2)
             words = json.loads(tpath.read_text())["words"]
-            transcripts[code] = [(norm(w["w"]), w["start"], w["end"]) for w in words if norm(w["w"])]
+            transcripts[code] = transcript_words(words)
 
     if args.skip_align:
         print("Alignment skipped (--skip-align).")
         return
 
-    phrases = parse_phrases(APP_JS.read_text())
-    print(f"Parsed {len(phrases)} unique phrases from app.js (Units 1+3).")
+    phrases = parse_phrases(APP_JS.read_text(), set(units))
+    print(f"Parsed {len(phrases)} unique phrases from app.js (Units {','.join(map(str, units))}).")
     db, report = align(phrases, transcripts)
+    if args.merge and OUT_JSON.exists():
+        merged = json.loads(OUT_JSON.read_text())
+        merged.update(db)
+        db = merged
     OUT_JSON.write_text(json.dumps(db, ensure_ascii=False, indent=1, sort_keys=True) + "\n")
     print(f"Wrote {OUT_JSON} with {len(db)} segments.")
 
-    for unit in (1, 3):
+    for unit in units:
         total = sum(1 for _k, (u, _e) in phrases.items() if u == unit)
         hit = sum(1 for (_k, u, _e, _c, _s, _a, _b, _t, _i, _l) in report if u == unit)
         print(f"Unit {unit}: {hit}/{total} phrases matched ({hit / total:.0%}).")
