@@ -107,6 +107,28 @@ def transcript_word(raw):
     return n
 
 
+# Single-word Spanish number vocabulary, for the number-run tie-break below.
+NUMBER_WORDS = set()
+for _n in range(100):
+    _w = number_word(_n)
+    if _w:
+        NUMBER_WORDS.update(_w.split())
+NUMBER_WORDS.discard("y")
+
+
+def number_run(t, i, last):
+    """Length of the run of consecutive number-word transcript tokens
+    covering window [i, last], extended outward. Number drills are runs
+    (uno, uno, dos, dos, tres, ...); stray digit tokens Whisper invents
+    outside drills sit alone between non-number words (run length 1)."""
+    lo, hi = i, last
+    while lo > 0 and t[lo - 1][0] in NUMBER_WORDS:
+        lo -= 1
+    while hi + 1 < len(t) and t[hi + 1][0] in NUMBER_WORDS:
+        hi += 1
+    return hi - lo + 1
+
+
 def transcript_words(words):
     """[(word, start, end)] for raw transcript words, dropping empties."""
     out = []
@@ -240,12 +262,20 @@ def word_match(pw, tw):
 def best_window(pwords, t):
     """Best fuzzy ordered window of pwords inside transcript t.
 
-    Returns (score, span, first_index, last_index) or None. A phrase word
-    that is not found within LOOKAHEAD transcript words counts as unmatched;
-    the scan continues with the next phrase word.
+    Returns (score, span, run, first_index, last_index) or None. A phrase
+    word that is not found within LOOKAHEAD transcript words counts as
+    unmatched; the scan continues with the next phrase word.
+
+    Ties on (score, span) go to the first occurrence, except for phrases
+    made only of number words: there the window inside the longest
+    number run wins. That fixes 'uno', whose first exact match on 02A
+    was a stray digit token in a repetition drill (~98s) instead of the
+    numbers drill (~578s), where uno sits inside uno, uno, dos, dos, ...
+    Non-number phrases keep the old comparison bit-identically.
     """
     best = None
     n = len(pwords)
+    all_numbers = all(pw in NUMBER_WORDS for pw in pwords)
     for i in range(len(t)):
         if t[i][1] < HEADER_SKIP:
             continue
@@ -266,9 +296,14 @@ def best_window(pwords, t):
                 j = hit + 1
         score = matched / n
         span = last - i + 1
-        if score >= MIN_MATCH and (best is None or score > best[0]
-                                  or (score == best[0] and span < best[1])):
-            best = (score, span, i, last)
+        if score < MIN_MATCH:
+            continue
+        run = number_run(t, i, last) if all_numbers else 0
+        if (best is None or score > best[0]
+                or (score == best[0] and span < best[1])
+                or (all_numbers and score == best[0] and span == best[1]
+                    and run > best[2])):
+            best = (score, span, run, i, last)
     return best
 
 
@@ -280,16 +315,20 @@ def align(phrases, transcripts):
         pwords = key.split()
         if not pwords:
             continue
-        best = None  # (score, span, tape, i, last)
+        all_numbers = all(pw in NUMBER_WORDS for pw in pwords)
+        best = None  # (score, span, run, tape, i, last)
         for code, (u, _f, _u) in TAPES.items():
             if u != unit:
                 continue
             w = best_window(pwords, transcripts[code])
-            if w and (best is None or w[0] > best[0] or (w[0] == best[0] and w[1] < best[1])):
-                best = (w[0], w[1], code, w[2], w[3])
+            if w and (best is None or w[0] > best[0]
+                      or (w[0] == best[0] and w[1] < best[1])
+                      or (all_numbers and w[0] == best[0] and w[1] == best[1]
+                          and w[2] > best[2])):
+                best = (w[0], w[1], w[2], code, w[3], w[4])
         if best is None:
             continue
-        score, _span, code, i, last = best
+        score, _span, _run, code, i, last = best
         t = transcripts[code]
         start = max(0.0, round(t[i][1] - START_PAD, 2))
         end = round(t[last][2] + END_PAD, 2)
