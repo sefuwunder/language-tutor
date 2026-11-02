@@ -21,9 +21,9 @@ Then open http://127.0.0.1:3044
 ## What it is
 
 A learning path of lesson nodes, Duolingo-style: each lesson opens with dialogue
-study cards (speaker + Spanish line + English, tap 🔊 to hear it via the
-browser's Spanish speech voice), then drills generated from that lesson's phrase
-pairs:
+study cards (speaker + Spanish line + English, tap 🔊 to hear it via server
+speech — cloud TTS, then local Piper, then the browser's Spanish voice),
+then drills generated from that lesson's phrase pairs:
 
 - Multiple choice, Spanish → English and English → Spanish
 - Typed translation, English → Spanish (accent-, punctuation-, and
@@ -36,9 +36,33 @@ Audio: each lesson's study screen also carries the original FSI tape
 recordings for its unit (Tape A and Tape B), streamed from Live Lingua's free
 public-domain FSI archive — not bundled with the repo, so the repo stays light.
 The tapes are whole-unit recordings, not per-phrase clips: per-line 🔊 buttons
-and listening drills still use the device's Spanish speech voice. If Live
-Lingua is unreachable, the players simply can't load and everything else
-still works.
+and listening drills use server speech (see below) when a line has no tape
+segment. If Live Lingua is unreachable, the players simply can't load and
+everything else still works.
+
+## Speech (TTS)
+
+Lines without a tape segment are voiced by the server, in this order:
+
+1. **Cloud TTS** (Google Cloud Neural2, `es-US-Neural2-A` by default) —
+   set `TTS_GOOGLE_API_KEY` in a `.env` file in the repo root (gitignored,
+   never committed, never shared in chat). Override the voice with
+   `TTS_GOOGLE_VOICE`. The key is only ever sent to Google's TTS endpoint.
+2. **Local Piper** — offline neural voice, no key. Run `sh scripts/setup-tts.sh`
+   once: it installs the Piper binary and the default Mexican voice
+   (`es_MX-ald-medium`, FSI teaches Latin American Spanish) under `data/piper/`
+   (gitignored). Swap voices with `PIPER_VOICE` (e.g. `es_ES-davefx-medium`,
+   `es_AR-daniela-high`), or point at your own build with `PIPER_BIN`.
+3. **Browser device voice** — if the server has neither engine, `/api/speak`
+   returns 503 and the browser falls back to its own Spanish voice, so
+   speech never breaks.
+
+`GET /api/speak?text=…` returns the audio (MP3 from cloud, WAV from Piper);
+`GET /api/tts/status` reports which engines are configured (never the key).
+Synthesized audio is cached under `data/tts-cache/` (gitignored) by engine,
+voice, and text hash, so repeated drills don't re-synthesize or re-bill.
+Cloud failures fall through to Piper automatically; only the failure is
+logged, never the key or the text.
 
 Hearts: 5 per lesson. A wrong answer loses one heart; 0 hearts fails the
 lesson with a retry screen. The lesson-complete screen shows XP earned and
@@ -57,6 +81,8 @@ option.
 - `GET /api/history` → last 14 days as `[{ date, xp }]`
 - `POST /api/sync-hearts` `{ hearts }` → updated progress (hearts clamped 0–5)
 - `POST /api/reset-progress` → cleared progress
+- `GET /api/speak?text=…` → spoken audio (cloud TTS, then local Piper; 503 when neither is configured)
+- `GET /api/tts/status` → `{ cloud, piper, voice }` (key presence only, never the key)
 
 ## v1 scope
 

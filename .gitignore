@@ -2,3 +2,5 @@
 *.db
 *.db-journal
 data/
+# Local secrets (cloud TTS key) must never be pushed.
+.env

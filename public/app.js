@@ -450,8 +450,18 @@ function norm(s) {
   return String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
     .replace(/[¿?¡!.,;:"]/g, "").replace(/\s+/g, " ").trim();
 }
-function speak(text) {
-  stopAudio();
+/* Server-side speech (cloud TTS, then local Piper) for lines with no
+   tape segment. The server endpoint /api/speak returns audio; when
+   it fails (no engine configured, cloud down, Piper missing) the
+   browser falls back to its device voice, so speech never breaks. */
+let ttsAudio = null;
+function stopTtsAudio() {
+  if (ttsAudio) {
+    try { ttsAudio.pause(); } catch (e) { /* noop */ }
+    ttsAudio = null;
+  }
+}
+function speakDevice(text) {
   if (!("speechSynthesis" in window)) return;
   try {
     window.speechSynthesis.cancel();
@@ -463,6 +473,24 @@ function speak(text) {
     u.lang = (pref && pref.lang) || "es";
     window.speechSynthesis.speak(u);
   } catch (e) { /* speech unavailable: drills still work */ }
+}
+async function speak(text) {
+  stopAudio();
+  try {
+    const res = await fetch("/api/speak?text=" + encodeURIComponent(text));
+    if (!res.ok) throw new Error("server speech unavailable");
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    stopTtsAudio();
+    ttsAudio = new Audio(url);
+    ttsAudio.onended = () => {
+      URL.revokeObjectURL(url);
+      if (ttsAudio && ttsAudio.src === url) ttsAudio = null;
+    };
+    await ttsAudio.play();
+  } catch (e) {
+    speakDevice(text);
+  }
 }
 
 /* ---------------- Tape segments (from audio-segments.json) ---------------- */
@@ -671,6 +699,8 @@ function bindSpeak(root) {
 function stopAudio() {
   document.querySelectorAll("#lesson-body audio").forEach((a) => { try { a.pause(); } catch (e) { /* noop */ } });
   stopSegment();
+  stopTtsAudio();
+  try { window.speechSynthesis.cancel(); } catch (e) { /* noop */ }
 }
 function startLesson(id) {
   const found = lessonById(id);

@@ -6,6 +6,7 @@
 import { Database } from "bun:sqlite";
 import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { getTtsStatus, synthesize } from "./tts.ts";
 
 const PORT = Number(process.env.LANGUAGE_TUTOR_PORT || 3044);
 const HOST = process.env.LANGUAGE_TUTOR_HOST || "127.0.0.1";
@@ -104,6 +105,10 @@ const MIME = {
 Bun.serve({
   hostname: HOST,
   port: PORT,
+  // /api/speak can take seconds when cloud TTS hangs before the
+  // Piper fallback lands; the default 10 s idle timeout would
+  // drop the request first (seen live with a bogus cloud key).
+  idleTimeout: 30,
   async fetch(req) {
     const url = new URL(req.url);
     const path = url.pathname;
@@ -170,6 +175,30 @@ Bun.serve({
       const hearts = Math.min(5, Math.max(0, Math.floor(Number(body.hearts) || 0)));
       db.query("UPDATE progress SET hearts = ? WHERE id = 1").run(hearts);
       return json(getProgress());
+    }
+
+    // Speech for TTS fallback lines: cloud TTS first, local Piper
+    // second (see tts.ts). No-store: the server-side disk cache
+    // already avoids re-synthesis, and a browser HTTP cache keyed
+    // only on text would go stale when the voice changes. When
+    // neither engine is available the browser falls back to its
+    // device voice, so this returns 503 rather than an error page.
+    if (path === "/api/speak" && req.method === "GET") {
+      const text = (url.searchParams.get("text") || "").slice(0, 1000);
+      if (!text.trim()) return json({ error: "text required" }, 400);
+      try {
+        const { audio, contentType } = await synthesize(text);
+        return new Response(audio as BodyInit, {
+          headers: { "content-type": contentType, "cache-control": "no-store" },
+        });
+      } catch (e) {
+        console.error(`speak failed: ${e}`);
+        return json({ error: "no speech engine available" }, 503);
+      }
+    }
+
+    if (path === "/api/tts/status" && req.method === "GET") {
+      return json(getTtsStatus());
     }
 
     if (path === "/api/reset-progress" && req.method === "POST") {
