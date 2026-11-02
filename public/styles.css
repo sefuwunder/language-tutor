@@ -74,6 +74,7 @@ h3 { font-size: 17px; margin: 20px 0 8px; }
   flex-shrink: 0;
 }
 .node.done { background: #ffd900; border-bottom-color: #d9b400; color: #7a5b00; }
+.node.review { background: var(--blue); border-bottom-color: var(--blue-dark); }
 .node.locked { background: var(--line); border-bottom-color: #cfcfcf; color: #999; cursor: not-allowed; }
 .node-label { font-weight: 700; font-size: 15px; }
 .node-label small { display: block; color: var(--muted); font-weight: 500; }

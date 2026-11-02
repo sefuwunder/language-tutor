@@ -606,11 +606,17 @@ function renderPath() {
       const icon = done ? "★" : unlocked ? "▶" : "🔒";
       html += `<div class="node-row"><button class="${cls}" data-lesson="${l.id}" ${unlocked ? "" : "disabled"}>${icon}</button><div class="node-label">${esc(l.title)}<small>${esc(l.sub)}</small></div></div>`;
     }
+    if (u.lessons.some((l) => progress.completedLessonIds.includes(l.id))) {
+      html += `<div class="node-row"><button class="node review" data-review="${u.n}">↻</button><div class="node-label">Review Unit ${u.n}<small>Drills from completed lessons</small></div></div>`;
+    }
     html += `</div>`;
   }
   path.innerHTML = html;
   path.querySelectorAll("[data-lesson]").forEach((btn) => {
     btn.addEventListener("click", () => startLesson(btn.dataset.lesson));
+  });
+  path.querySelectorAll("[data-review]").forEach((btn) => {
+    btn.addEventListener("click", () => startReview(Number(btn.dataset.review)));
   });
 }
 
@@ -709,6 +715,41 @@ function startLesson(id) {
     unit: found.unit, lesson: found.lesson, steps: buildSteps(found.lesson),
     stepIdx: 0, hearts: 5, correct: 0, answered: 0, xp: 0,
     phase: "study", posted: false, matchWrong: false, evaluate: null,
+  };
+  showView("lesson");
+  api("/api/sync-hearts", "POST", { hearts: 5 });
+  renderStep();
+}
+/* ---------------- Review drills ---------------- */
+/* Cards from a unit's completed lessons, deduped by normalized Spanish.
+   A fresh sample every session; buildSteps caps the session at 12 cards. */
+function reviewCards(unitN) {
+  const unit = UNITS.find((u) => u.n === unitN);
+  if (!unit) return [];
+  const seen = new Set();
+  const cards = [];
+  for (const l of unit.lessons) {
+    if (!progress.completedLessonIds.includes(l.id)) continue;
+    for (const c of l.cards) {
+      const k = norm(c.es);
+      if (!seen.has(k)) { seen.add(k); cards.push(c); }
+    }
+  }
+  return shuffle(cards);
+}
+/* Review sessions skip the study phase and go straight to drills, using
+   the same step builders as lessons. L.review marks the session; it never
+   posts a lesson completion, so reviews award XP without touching unlocks. */
+function startReview(unitN) {
+  const cards = reviewCards(unitN);
+  if (cards.length === 0) return;
+  const unit = UNITS.find((u) => u.n === unitN);
+  const lesson = { id: "review-u" + unitN, title: "Review: Unit " + unitN, cards };
+  L = {
+    unit, lesson, steps: buildSteps(lesson),
+    stepIdx: 1, hearts: 5, correct: 0, answered: 0, xp: 0,
+    phase: "answer", posted: false, matchWrong: false, evaluate: null,
+    review: unitN,
   };
   showView("lesson");
   api("/api/sync-hearts", "POST", { hearts: 5 });
@@ -931,28 +972,41 @@ function showComplete() {
   stopSegment();
   document.getElementById("lesson-progress").style.width = "100%";
   const acc = L.answered > 0 ? Math.round((L.correct / L.answered) * 100) : 0;
-  document.getElementById("lesson-body").innerHTML = `<div class="complete-box"><div class="trophy">🏆</div><h2>Lesson complete!</h2><p><b>${L.xp} XP</b> earned · ${acc}% accuracy</p><button id="again-btn" class="btn">Practice again</button></div>`;
+  const trophy = L.review ? "↻" : "🏆";
+  const heading = L.review ? "Review complete!" : "Lesson complete!";
+  document.getElementById("lesson-body").innerHTML = `<div class="complete-box"><div class="trophy">${trophy}</div><h2>${heading}</h2><p><b>${L.xp} XP</b> earned · ${acc}% accuracy</p><button id="again-btn" class="btn">Practice again</button></div>`;
   document.getElementById("feedback").className = "feedback hidden";
   const action = document.getElementById("lesson-action");
   action.textContent = "Back to path";
   action.disabled = false;
   L.phase = "done";
-  document.getElementById("again-btn").addEventListener("click", () => startLesson(L.lesson.id));
+  document.getElementById("again-btn").addEventListener("click", () => {
+    if (L.review) startReview(L.review); else startLesson(L.lesson.id);
+  });
   if (!L.posted) {
     L.posted = true;
-    api("/api/complete-lesson", "POST", { lessonId: L.lesson.id, xp: L.xp, correct: L.correct, total: L.answered })
-      .then((p) => { progress = p; renderHeader(); });
+    if (L.review) {
+      api("/api/review-complete", "POST", { xp: L.xp })
+        .then((p) => { progress = p; renderHeader(); });
+    } else {
+      api("/api/complete-lesson", "POST", { lessonId: L.lesson.id, xp: L.xp, correct: L.correct, total: L.answered })
+        .then((p) => { progress = p; renderHeader(); });
+    }
   }
 }
 function showFail() {
   stopSegment();
-  document.getElementById("lesson-body").innerHTML = `<div class="complete-box"><div class="trophy">💔</div><h2>Out of hearts</h2><p>Review the dialogue and try again — it stays here.</p><button id="retry-btn" class="btn primary">Retry lesson</button></div>`;
+  const hint = L.review ? "Try again — the cards are reshuffled." : "Review the dialogue and try again — it stays here.";
+  const btn = L.review ? "Retry review" : "Retry lesson";
+  document.getElementById("lesson-body").innerHTML = `<div class="complete-box"><div class="trophy">💔</div><h2>Out of hearts</h2><p>${hint}</p><button id="retry-btn" class="btn primary">${btn}</button></div>`;
   document.getElementById("feedback").className = "feedback hidden";
   const action = document.getElementById("lesson-action");
   action.textContent = "Back to path";
   action.disabled = false;
   L.phase = "done";
-  document.getElementById("retry-btn").addEventListener("click", () => startLesson(L.lesson.id));
+  document.getElementById("retry-btn").addEventListener("click", () => {
+    if (L.review) startReview(L.review); else startLesson(L.lesson.id);
+  });
 }
 document.getElementById("lesson-action").addEventListener("click", () => {
   if (!L) return;

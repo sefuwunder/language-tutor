@@ -68,6 +68,13 @@ Hearts: 5 per lesson. A wrong answer loses one heart; 0 hearts fails the
 lesson with a retry screen. The lesson-complete screen shows XP earned and
 accuracy. Locked lessons unlock by completing the previous one.
 
+Review drills: once a unit has a completed lesson, a blue ↻ node appears
+after that unit's lessons on the Learn path. A review session draws a fresh
+shuffle (up to 12 cards) from the unit's completed lessons and runs the same
+drill types — no study phase, since this is reinforcement, not new material.
+Completing a review awards XP and keeps the streak, but never marks a lesson
+complete or unlocks anything.
+
 Progress (total XP, day streak with last-study date, completed lesson ids,
 per-day XP history, hearts) lives in SQLite on the server, not in browser
 storage. The Profile view shows totals, last-14-days activity, and a reset
@@ -81,6 +88,7 @@ option.
 - `GET /api/history` → last 14 days as `[{ date, xp }]`
 - `POST /api/sync-hearts` `{ hearts }` → updated progress (hearts clamped 0–5)
 - `POST /api/reset-progress` → cleared progress
+- `POST /api/review-complete` `{ xp }` → updated progress (XP + streak, no lesson marked complete)
 - `GET /api/speak?text=…` → spoken audio (cloud TTS, then local Piper; 503 when neither is configured)
 - `GET /api/tts/status` → `{ cloud, piper, voice }` (key presence only, never the key)
 

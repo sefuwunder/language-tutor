@@ -55,6 +55,31 @@ function yesterdayLocal() {
   return `${y}-${m}-${day}`;
 }
 
+/* Shared by lesson completion and review completion: streak, daily XP,
+   total XP, and the hearts refill. Reviews use this without marking any
+   lesson complete, so they never affect unlocks. */
+function awardXp(xp) {
+  const today = todayLocal();
+  const prev = db
+    .query("SELECT streak, last_study_date FROM progress WHERE id = 1")
+    .get();
+  let streak = prev.streak;
+  if (prev.last_study_date === today) {
+    // streak unchanged
+  } else if (prev.last_study_date === yesterdayLocal()) {
+    streak = prev.streak + 1;
+  } else {
+    streak = 1;
+  }
+  db.query(
+    "INSERT INTO daily_xp (date, xp) VALUES (?, ?) ON CONFLICT(date) DO UPDATE SET xp = xp + ?"
+  ).run(today, xp, xp);
+  db.query(
+    "UPDATE progress SET total_xp = total_xp + ?, streak = ?, last_study_date = ?, hearts = 5 WHERE id = 1"
+  ).run(xp, streak, today);
+  return getProgress();
+}
+
 function getProgress() {
   const row = db
     .query("SELECT total_xp, streak, last_study_date, hearts FROM progress WHERE id = 1")
@@ -131,38 +156,40 @@ Bun.serve({
       const lessonId = String(body.lessonId || "");
       const xp = Math.max(0, Math.floor(Number(body.xp) || 0));
       if (!lessonId) return json({ error: "lessonId required" }, 400);
-      const today = todayLocal();
-      const prev = db
-        .query("SELECT streak, last_study_date FROM progress WHERE id = 1")
-        .get();
       const already = db
         .query("SELECT 1 FROM completed_lessons WHERE lesson_id = ?")
         .get(lessonId);
-      let streak = prev.streak;
-      if (prev.last_study_date === today) {
-        // streak unchanged
-      } else if (prev.last_study_date === yesterdayLocal()) {
-        streak = prev.streak + 1;
-      } else {
-        streak = 1;
-      }
       db.exec("BEGIN");
       try {
         db.query(
           "INSERT OR IGNORE INTO completed_lessons (lesson_id, completed_at) VALUES (?, ?)"
         ).run(lessonId, new Date().toISOString());
-        db.query(
-          "INSERT INTO daily_xp (date, xp) VALUES (?, ?) ON CONFLICT(date) DO UPDATE SET xp = xp + ?"
-        ).run(today, xp, xp);
-        db.query(
-          "UPDATE progress SET total_xp = total_xp + ?, streak = ?, last_study_date = ?, hearts = 5 WHERE id = 1"
-        ).run(xp, streak, today);
+        awardXp(xp);
         db.exec("COMMIT");
       } catch (e) {
         db.exec("ROLLBACK");
         throw e;
       }
       return json({ ...getProgress(), isFirstCompletion: !already });
+    }
+
+    if (path === "/api/review-complete" && req.method === "POST") {
+      let body;
+      try {
+        body = await req.json();
+      } catch {
+        return json({ error: "invalid JSON" }, 400);
+      }
+      const xp = Math.max(0, Math.floor(Number(body.xp) || 0));
+      db.exec("BEGIN");
+      try {
+        const p = awardXp(xp);
+        db.exec("COMMIT");
+        return json(p);
+      } catch (e) {
+        db.exec("ROLLBACK");
+        throw e;
+      }
     }
 
     if (path === "/api/sync-hearts" && req.method === "POST") {
